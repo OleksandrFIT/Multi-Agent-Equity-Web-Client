@@ -14,3 +14,12 @@ test('fetches prices and renders charts', async () => {
   expect(await screen.findByText('price-chart')).toBeInTheDocument()
   expect(screen.getByText('rsi-chart')).toBeInTheDocument()
 })
+
+test('shows a loading indicator while fetching', async () => {
+  let resolve: (v: any) => void = () => {}
+  vi.spyOn(client, 'getPrices').mockReturnValue(new Promise((r) => { resolve = r }))
+  render(<PricePanel ticker="AAPL" />)
+  expect(screen.getByTestId('prices-loading')).toBeInTheDocument()
+  resolve({ ticker: 'AAPL', period: '6M', candles: [{ time: '2026-01-02', value: 1 }], sma50: [], sma200: [], rsi: [] })
+  expect(await screen.findByText('price-chart')).toBeInTheDocument()
+})
