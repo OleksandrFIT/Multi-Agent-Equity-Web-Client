@@ -2,9 +2,9 @@ import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom'
 import { HealthBanner } from './components/HealthBanner'
 import { Analyze } from './pages/Analyze'
 import { Backtest } from './pages/Backtest'
-import { Ingest } from './pages/Ingest'
+import { News } from './pages/News'
 
-const tabs = [{ to: '/', label: 'Analyze' }, { to: '/backtest', label: 'Backtest' }, { to: '/ingest', label: 'Ingest' }]
+const tabs = [{ to: '/', label: 'Analyze' }, { to: '/backtest', label: 'Backtest' }, { to: '/news', label: 'News' }]
 
 export default function App() {
   return (
@@ -32,7 +32,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Analyze />} />
             <Route path="/backtest" element={<Backtest />} />
-            <Route path="/ingest" element={<Ingest />} />
+            <Route path="/news" element={<News />} />
           </Routes>
         </main>
       </div>

@@ -58,3 +58,13 @@ export type Period = '1M' | '3M' | '6M' | '1Y'
 
 export interface Quote { ticker: string; price: number; change_pct: number }
 export interface Resolve { input: string; resolved: string | null; corrected: boolean }
+
+export interface NewsArticle { title: string; url: string; source: string; published_at: string }
+export interface NewsResult {
+  query: string
+  resolved: string | null
+  corrected: boolean
+  items: NewsArticle[]
+  fetched: number
+  added: number
+}

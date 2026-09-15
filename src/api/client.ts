@@ -1,4 +1,4 @@
-import type { Period, Prices, Quote, Resolve } from './types'
+import type { NewsResult, Period, Prices, Quote, Resolve } from './types'
 
 export async function getJSON<T>(url: string): Promise<T> {
   const r = await fetch(url)
@@ -59,4 +59,8 @@ export function getQuotes(tickers: string[]): Promise<Quote[]> {
 
 export function getResolve(query: string): Promise<Resolve> {
   return getJSON<Resolve>(`/api/resolve?query=${encodeURIComponent(query)}`)
+}
+
+export function getNews(query: string): Promise<NewsResult> {
+  return postJSON<NewsResult>('/api/news', { query })
 }
