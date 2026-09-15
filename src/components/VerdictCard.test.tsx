@@ -15,3 +15,14 @@ test('renders verdict headline, caution and disclaimer', () => {
   expect(screen.getByText(/Elevated risk/i)).toBeInTheDocument()
   expect(screen.getByText(/not advice/i)).toBeInTheDocument()
 })
+
+test('renders unknown-ticker state without a verdict badge', () => {
+  render(<VerdictCard verdict={{ ...v, status: 'unknown_ticker', narrative: 'No price data for ZZZZ.', opinions: [] }} />)
+  expect(screen.getAllByText(/unknown or delisted|no price data|unknown ticker/i)[0]).toBeInTheDocument()
+  expect(screen.queryByText(/^BUY$/i)).toBeNull()
+})
+
+test('renders insufficient-data state', () => {
+  render(<VerdictCard verdict={{ ...v, status: 'insufficient_data', opinions: [] }} />)
+  expect(screen.getByText(/insufficient data/i)).toBeInTheDocument()
+})

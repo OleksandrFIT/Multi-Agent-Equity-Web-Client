@@ -4,6 +4,29 @@ import { Meter } from '../ui/primitives'
 import { AgentCard } from './AgentCard'
 
 export function VerdictCard({ verdict }: { verdict: Verdict }) {
+  if (verdict.status === 'unknown_ticker' || verdict.status === 'insufficient_data') {
+    const heading = verdict.status === 'unknown_ticker' ? 'Unknown ticker' : 'Insufficient data'
+    return (
+      <div className="space-y-3 animate-fade-in">
+        <div className="rounded-xl border p-5" style={{ background: 'var(--surface)', borderColor: 'var(--neutral)' }}>
+          <div className="flex items-center gap-3">
+            <h2 className="text-2xl font-bold" style={{ color: 'var(--text)' }}>{verdict.ticker}</h2>
+            <span className="rounded-lg px-3 py-1 text-sm font-bold uppercase"
+              style={{ color: 'var(--neutral)', background: 'color-mix(in srgb, var(--neutral) 18%, transparent)' }}>
+              {heading}
+            </span>
+          </div>
+          <p className="mt-3 text-sm" style={{ color: 'var(--text-dim)' }}>{verdict.narrative}</p>
+          {verdict.skipped_agents.length > 0 && (
+            <div className="mt-3 text-xs" style={{ color: 'var(--text-mut)' }}>
+              {verdict.skipped_agents.map((a) => `${a}${verdict.skip_reasons[a] ? ` (${verdict.skip_reasons[a]})` : ''}`).join(', ')}
+            </div>
+          )}
+        </div>
+        {verdict.opinions.map((o) => <AgentCard key={o.agent} event={{ agent: o.agent, opinion: o }} />)}
+      </div>
+    )
+  }
   const tone = verdictTone[verdict.verdict] ?? 'neutral'
   return (
     <div className="space-y-4 animate-fade-in">
