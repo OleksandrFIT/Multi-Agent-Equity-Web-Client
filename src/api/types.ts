@@ -8,6 +8,7 @@ export interface AgentOpinion {
   rationale: string
   key_facts: string[]
   dropped_facts: string[]
+  metrics?: Record<string, number>
 }
 
 export interface Verdict {
