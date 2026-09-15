@@ -19,12 +19,14 @@ export function Backtest() {
 
   return (
     <div className="space-y-4">
-      <button onClick={run} disabled={running} className="rounded-lg bg-blue-600 px-4 py-2 text-white disabled:opacity-50">
+      <button onClick={run} disabled={running}
+        className="rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-50"
+        style={{ background: 'var(--accent)', color: '#04121f' }}>
         Run backtest
       </button>
-      {running && <div className="text-sm text-gray-500">Running… {progress.length} done</div>}
+      {running && <div className="text-sm" style={{ color: 'var(--text-dim)' }}>Running… {progress.length} done</div>}
       {progress.length > 0 && !report && (
-        <ul className="text-xs text-gray-500">{progress.map((p, i) => <li key={i}>{p}</li>)}</ul>
+        <ul className="tnum space-y-0.5 text-xs" style={{ color: 'var(--text-mut)' }}>{progress.map((p, i) => <li key={i}>{p}</li>)}</ul>
       )}
       {report && <BacktestReportView report={report} />}
     </div>
