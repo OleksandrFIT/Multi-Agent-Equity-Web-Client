@@ -7,8 +7,12 @@ export function HealthBanner() {
   useEffect(() => {
     getJSON<Health>('/api/health').then(setH).catch(() => setH({ ok: false, model: '', ollama_reachable: false }))
   }, [])
-  if (h && !h.ollama_reachable) {
-    return <div className="bg-red-100 p-2 text-sm text-red-800">Ollama is not reachable — start it and reload.</div>
-  }
-  return null
+  const ok = h?.ollama_reachable ?? false
+  const tone = ok ? 'var(--bull)' : 'var(--bear)'
+  return (
+    <span className="flex items-center gap-1.5 text-xs" style={{ color: 'var(--text-dim)' }} title={h?.model || ''}>
+      <span className="h-2 w-2 rounded-full" style={{ background: tone }} />
+      {ok ? h?.model || 'online' : 'ollama offline'}
+    </span>
+  )
 }
