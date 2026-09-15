@@ -1,4 +1,4 @@
-import type { Period, Prices } from './types'
+import type { Period, Prices, Quote, Resolve } from './types'
 
 export async function getJSON<T>(url: string): Promise<T> {
   const r = await fetch(url)
@@ -51,4 +51,12 @@ export function streamSSE(
 
 export function getPrices(ticker: string, period: Period): Promise<Prices> {
   return getJSON<Prices>(`/api/prices?ticker=${encodeURIComponent(ticker.toUpperCase())}&period=${period}`)
+}
+
+export function getQuotes(tickers: string[]): Promise<Quote[]> {
+  return getJSON<Quote[]>(`/api/quotes?tickers=${encodeURIComponent(tickers.join(','))}`)
+}
+
+export function getResolve(query: string): Promise<Resolve> {
+  return getJSON<Resolve>(`/api/resolve?query=${encodeURIComponent(query)}`)
 }

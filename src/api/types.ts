@@ -55,3 +55,6 @@ export interface Prices {
   rsi: PricePoint[]
 }
 export type Period = '1M' | '3M' | '6M' | '1Y'
+
+export interface Quote { ticker: string; price: number; change_pct: number }
+export interface Resolve { input: string; resolved: string | null; corrected: boolean }
