@@ -28,3 +28,10 @@ body {
 .animate-pulse-soft { animation: pulse-soft 1.2s ease-in-out infinite; }
 @keyframes fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 .animate-fade-in { animation: fade-in .25s ease-out both; }
+.tape-track { animation: tape-scroll 60s linear infinite; }
+@keyframes tape-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.tape-track:hover { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .tape-track { animation: none; }
+  .tape-mask { overflow-x: auto; }
+}
