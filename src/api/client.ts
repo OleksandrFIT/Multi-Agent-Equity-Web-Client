@@ -1,3 +1,5 @@
+import type { Period, Prices } from './types'
+
 export async function getJSON<T>(url: string): Promise<T> {
   const r = await fetch(url)
   if (!r.ok) throw new Error(`GET ${url} failed: ${r.status}`)
@@ -45,4 +47,8 @@ export function streamSSE(
     onDone?.()
   }
   return es
+}
+
+export function getPrices(ticker: string, period: Period): Promise<Prices> {
+  return getJSON<Prices>(`/api/prices?ticker=${encodeURIComponent(ticker.toUpperCase())}&period=${period}`)
 }

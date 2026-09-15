@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { BacktestReportView } from './BacktestReport'
 
+vi.mock('./EquityCurve', () => ({ EquityCurve: () => <div>curve</div> }))
+
 const report = {
   n_records: 2, disclaimer: 'small sample',
   horizons: {
@@ -9,9 +11,11 @@ const report = {
   },
 }
 
-test('renders horizons and IC', () => {
+test('renders horizons, IC tile, and curve', () => {
   render(<BacktestReportView report={report} />)
-  expect(screen.getByText(/21/)).toBeInTheDocument()
-  expect(screen.getByText(/63/)).toBeInTheDocument()
-  expect(screen.getAllByText(/information coefficient/i).length).toBeGreaterThan(0)
+  expect(screen.getByText(/Horizon 21 trading days/i)).toBeInTheDocument()
+  expect(screen.getByText(/Horizon 63 trading days/i)).toBeInTheDocument()
+  expect(screen.getAllByText('IC').length).toBeGreaterThan(0)
+  expect(screen.getByText('0.200')).toBeInTheDocument()   // ic formatted
+  expect(screen.getAllByText('curve').length).toBeGreaterThan(0)
 })

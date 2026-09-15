@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --bg: #0a0f1c;
+  --surface: #131a2a;
+  --surface-2: #101827;
+  --border: #263352;
+  --border-soft: #1e293b;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --text-mut: #64748b;
+  --accent: #38bdf8;
+  --bull: #34d399;
+  --neutral: #fbbf24;
+  --bear: #fb7185;
+}
+
+html, body, #root { min-height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.tnum { font-variant-numeric: tabular-nums; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+@keyframes pulse-soft { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+.animate-pulse-soft { animation: pulse-soft 1.2s ease-in-out infinite; }
+@keyframes fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.animate-fade-in { animation: fade-in .25s ease-out both; }

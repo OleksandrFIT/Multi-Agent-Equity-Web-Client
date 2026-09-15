@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { postJSON } from '../api/client'
 import { TickerInput } from '../components/TickerInput'
+import { Card } from '../ui/primitives'
 
 export function Ingest() {
   const [msg, setMsg] = useState<string | null>(null)
@@ -16,8 +17,10 @@ export function Ingest() {
   }
   return (
     <div className="space-y-3">
-      <TickerInput onSubmit={run} disabled={busy} />
-      {msg && <div className="text-sm text-gray-700">{msg}</div>}
+      <Card title="Ingest news + filings">
+        <TickerInput onSubmit={run} disabled={busy} />
+        {msg && <div className="mt-3 text-sm" style={{ color: 'var(--text-dim)' }}>{msg}</div>}
+      </Card>
     </div>
   )
 }

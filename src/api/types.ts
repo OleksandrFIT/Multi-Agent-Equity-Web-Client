@@ -8,6 +8,7 @@ export interface AgentOpinion {
   rationale: string
   key_facts: string[]
   dropped_facts: string[]
+  metrics?: Record<string, number>
 }
 
 export interface Verdict {
@@ -42,3 +43,14 @@ export interface BacktestReport {
 }
 export interface BacktestConfig { universe: string[]; dates: string[]; horizons: number[] }
 export interface Health { ok: boolean; model: string; ollama_reachable: boolean }
+
+export interface PricePoint { time: string; value: number }
+export interface Prices {
+  ticker: string
+  period: string
+  candles: PricePoint[]
+  sma50: PricePoint[]
+  sma200: PricePoint[]
+  rsi: PricePoint[]
+}
+export type Period = '1M' | '3M' | '6M' | '1Y'
