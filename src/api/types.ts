@@ -15,6 +15,7 @@ export interface Verdict {
   ticker: string
   as_of: string
   verdict: 'buy' | 'hold' | 'sell'
+  status?: 'ok' | 'unknown_ticker' | 'insufficient_data'
   score: number
   confidence: number
   narrative: string
