@@ -16,6 +16,10 @@ const SPECS: Record<string, Spec> = {
   beta: { label: 'Beta', min: 0, max: 2.5, format: num },
   rsi14: { label: 'RSI', min: 0, max: 100, format: (v) => v.toFixed(0) },
   trend_pct: { label: 'Trend', min: -30, max: 30, format: (v) => `${v >= 0 ? '+' : ''}${v.toFixed(0)}%` },
+  operating_margin: { label: 'Op margin', min: 0, max: 0.5, format: pct, tone: 'var(--bull)' },
+  net_margin: { label: 'Net margin', min: 0, max: 0.5, format: pct, tone: 'var(--bull)' },
+  fcf_margin: { label: 'FCF margin', min: 0, max: 0.5, format: pct, tone: 'var(--bull)' },
+  current_ratio: { label: 'Current ratio', min: 0, max: 3, format: num },
 }
 
 export function MetricGauges({ metrics }: { metrics: Record<string, number> }) {
