@@ -2,6 +2,7 @@ import type { BacktestReport } from '../api/types'
 import { StatTile } from '../ui/primitives'
 import { Card } from '../ui/primitives'
 import { EquityCurve } from './EquityCurve'
+import { verdictTone, toneVar } from '../ui/tokens'
 
 const pct = (v: number) => `${v >= 0 ? '+' : ''}${(v * 100).toFixed(1)}%`
 
@@ -29,6 +30,42 @@ export function BacktestReportView({ report }: { report: BacktestReport }) {
           </Card>
         )
       })}
+      {report.records && report.records.length > 0 && (
+        <Card title="Per-record detail">
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs tnum">
+              <thead>
+                <tr style={{ color: 'var(--text-mut)' }}>
+                  <th className="py-1 text-left">Ticker</th>
+                  <th className="text-left">As of</th>
+                  <th className="text-right">Verdict</th>
+                  <th className="text-right">Score</th>
+                  {Object.keys(report.horizons).map((h) => <th key={h} className="text-right">fwd {h}d</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {report.records.map((r, i) => (
+                  <tr key={i} style={{ borderTop: '1px solid var(--border-soft)' }}>
+                    <td className="py-1 font-semibold" style={{ color: 'var(--text)' }}>{r.ticker}</td>
+                    <td style={{ color: 'var(--text-dim)' }}>{r.as_of}</td>
+                    <td className="text-right uppercase" style={{ color: toneVar[verdictTone[r.verdict] ?? 'neutral'] }}>{r.verdict}</td>
+                    <td className="text-right" style={{ color: 'var(--text)' }}>{r.score >= 0 ? '+' : ''}{r.score.toFixed(2)}</td>
+                    {Object.keys(report.horizons).map((h) => {
+                      const v = r.fwd_returns[h]
+                      return (
+                        <td key={h} className="text-right"
+                          style={{ color: v == null ? 'var(--text-mut)' : v >= 0 ? 'var(--bull)' : 'var(--bear)' }}>
+                          {v == null ? '—' : `${v >= 0 ? '+' : ''}${(v * 100).toFixed(1)}%`}
+                        </td>
+                      )
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      )}
       <div className="text-xs" style={{ color: 'var(--text-mut)' }}>{report.disclaimer}</div>
     </div>
   )

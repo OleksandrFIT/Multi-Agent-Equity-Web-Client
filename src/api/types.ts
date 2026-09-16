@@ -37,9 +37,17 @@ export interface HorizonMetrics {
   ic: number | null
   long_short_curve: number[]
 }
+export interface BacktestRecordRow {
+  ticker: string
+  as_of: string
+  verdict: 'buy' | 'hold' | 'sell'
+  score: number
+  fwd_returns: Record<string, number | null>
+}
 export interface BacktestReport {
   n_records: number
   horizons: Record<string, HorizonMetrics>
+  records?: BacktestRecordRow[]
   disclaimer: string
 }
 export interface BacktestConfig { universe: string[]; dates: string[]; horizons: number[] }
