@@ -46,6 +46,9 @@ export function VerdictCard({ verdict }: { verdict: Verdict }) {
           <div className="w-40"><Meter value={verdict.confidence} /></div>
           <span className="tnum" style={{ color: 'var(--text)' }}>{Math.round(verdict.confidence * 100)}%</span>
         </div>
+        {verdict.calibration_note && (
+          <div className="mt-2 text-xs" style={{ color: 'var(--text-mut)' }}>⚖ {verdict.calibration_note}</div>
+        )}
         <p className="mt-4 border-l-2 pl-3 text-sm leading-relaxed"
           style={{ borderColor: 'var(--accent)', color: 'var(--text-dim)' }}>{verdict.narrative}</p>
         {verdict.caution && (

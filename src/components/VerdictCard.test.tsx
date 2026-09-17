@@ -26,3 +26,8 @@ test('renders insufficient-data state', () => {
   render(<VerdictCard verdict={{ ...v, status: 'insufficient_data', opinions: [] }} />)
   expect(screen.getByText(/insufficient data/i)).toBeInTheDocument()
 })
+
+test('shows the calibration note when present', () => {
+  render(<VerdictCard verdict={{ ...v, calibration_note: 'Confidence tempered ×0.28 by historical sell accuracy' }} />)
+  expect(screen.getByText(/tempered ×0.28/i)).toBeInTheDocument()
+})

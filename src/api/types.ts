@@ -23,6 +23,7 @@ export interface Verdict {
   opinions: AgentOpinion[]
   disclaimer: string
   caution: string | null
+  calibration_note?: string | null
   skipped_agents: string[]
   skip_reasons: Record<string, string>
 }
