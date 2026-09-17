@@ -9,6 +9,7 @@ export interface AgentOpinion {
   key_facts: string[]
   dropped_facts: string[]
   metrics?: Record<string, number>
+  critique?: string | null
 }
 
 export interface Verdict {

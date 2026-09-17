@@ -16,3 +16,10 @@ test('renders a skipped agent', () => {
   expect(screen.getByText(/sentiment/i)).toBeInTheDocument()
   expect(screen.getByText(/no news/i)).toBeInTheDocument()
 })
+
+test('shows a critique note when present', () => {
+  render(<AgentCard event={{ agent: 'fundamentals', opinion: {
+    agent: 'fundamentals', stance: 'bullish', score: 0.5, confidence: 0.4,
+    rationale: 'r', key_facts: [], dropped_facts: [], metrics: {}, critique: 'rationale not backed by metrics' } }} />)
+  expect(screen.getByText(/rationale not backed by metrics/i)).toBeInTheDocument()
+})
