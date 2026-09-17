@@ -32,6 +32,13 @@ export function AgentCard({ event }: { event: AgentEvent }) {
         {o.key_facts.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-1.5">{o.key_facts.map((f) => <Chip key={f}>{f}</Chip>)}</div>
         )}
+        {o.critique && (
+          <div className="mt-3 rounded-md border px-2 py-1 text-xs"
+            style={{ borderColor: 'var(--neutral)', color: 'var(--neutral)',
+                     background: 'color-mix(in srgb, var(--neutral) 10%, transparent)' }}>
+            ⚠ critique: {o.critique}
+          </div>
+        )}
       </Card>
     </div>
   )
